@@ -22,6 +22,7 @@ public:
 	void SetImageParam( const ImageParams& stParam );
 	void UpdateImage();
 	void UpdateVolumeProperty( const VolumePropertyInfo& stOpacityColors );
+	VolumePropertyInfo GetVolumeProperty();
 
 private:
 	vtkSmartPointer<vtkRenderer> m_pRenderer;
@@ -30,6 +31,7 @@ private:
 	vtkSmartPointer<vtkVolumeProperty> m_pVolumeProperty;
 
 	ImageParams m_stImageParam;
+	VolumePropertyInfo m_stPropertyInfo;
 };
 
 #endif // CVOLUMEWIDGET_H

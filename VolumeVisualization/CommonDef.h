@@ -40,24 +40,22 @@ struct ImageParams
 
 struct RGBA
 {
-	double	m_r;
-	double	m_g;
-	double	m_b;
-	double	m_a;
+	int	m_nR;
+	int	m_nG;
+	int	m_nB;
+	int	m_nA;
 	RGBA()
 	{
-		m_r = 0;
-		m_g = 0;
-		m_b = 0;
-		m_a = 255;
+		m_nR = 0;
+		m_nG = 0;
+		m_nB = 0;
+		m_nA = 255;
 	}
 };
 
 struct VolumePropertyInfo
 {
 	bool					bClamping;			//Clamping模式
-
-	bool					bUseAbsolute;		//是否在mapOpacity和mapColor中使用绝对值，默认false
 
 	QMap<float, float>		mapOpacity;			//Opacity映射表
 	QMap<float, RGBA>		mapColor;			//颜色映射表
@@ -74,33 +72,32 @@ struct VolumePropertyInfo
 	VolumePropertyInfo()
 	{
 		bClamping = true;
-		bUseAbsolute = false;
 
 		//Color
 		mapColor.clear();
 		RGBA rgba;
-		rgba.m_r = 0;
-		rgba.m_g = 0;
-		rgba.m_b = 0;
-		rgba.m_a = 255;
+		rgba.m_nR = 0;
+		rgba.m_nG = 0;
+		rgba.m_nB = 0;
+		rgba.m_nA = 255;
 		mapColor[ 0.0 ] = rgba;
 
-		rgba.m_r = 255;
-		rgba.m_g = 255;
-		rgba.m_b = 0;
+		rgba.m_nR = 255;
+		rgba.m_nG = 255;
+		rgba.m_nB = 0;
 		mapColor[ 0.25 ] = rgba;
-		rgba.m_r = 0;
-		rgba.m_g = 255;
-		rgba.m_b = 0;
+		rgba.m_nR = 0;
+		rgba.m_nG = 255;
+		rgba.m_nB = 0;
 		mapColor[ 0.5 ] = rgba;
 
-		rgba.m_r = 0;
-		rgba.m_g = 255;
-		rgba.m_b = 255;
+		rgba.m_nR = 0;
+		rgba.m_nG = 255;
+		rgba.m_nB = 255;
 		mapColor[ 0.75 ] = rgba;
-		rgba.m_r = 0;
-		rgba.m_g = 0;
-		rgba.m_b = 255;
+		rgba.m_nR = 0;
+		rgba.m_nG = 0;
+		rgba.m_nB = 255;
 		mapColor[ 1.0 ] = rgba;
 
 		//Opacity

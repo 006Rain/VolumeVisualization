@@ -4,7 +4,11 @@
 #include "QVTKWidget.h"
 #include "ui_volumevisualization.h"
 
+class QPushButton;
 class CVtkVolumeWidget;
+class CVolumePropertySetDlg;
+
+struct VolumePropertyInfo;
 
 class VolumeVisualization : public QWidget
 {
@@ -17,6 +21,7 @@ public:
 protected slots:
 	void slotBtnLoad();
 	void slotBtnOpacity();
+	void slotOpacityInfoChanged( const VolumePropertyInfo& stRGBA );
 
 private:
 	void InitWidget();
@@ -25,6 +30,9 @@ private:
 	Ui::VolumeVisualizationClass ui;
 
 	CVtkVolumeWidget* m_pVolumeWidget;
+
+	QPushButton* m_pBtnOpacity;
+	CVolumePropertySetDlg* m_pOpacityDlg;
 };
 
 #endif // VOLUMEVISUALIZATION_H

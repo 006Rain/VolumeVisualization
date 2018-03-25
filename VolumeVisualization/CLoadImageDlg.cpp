@@ -66,6 +66,7 @@ void CLoadImageDlg::InitWidget()
 	m_pCmbDataType->addItem( "Char" );
 	m_pCmbDataType->addItem( "Short" );
 	m_pCmbDataType->addItem( "Float" );
+	m_pCmbDataType->setCurrentIndex( 1 );
 	m_pCmbDataType->setFixedHeight( 25 );
 
 	//File Path
