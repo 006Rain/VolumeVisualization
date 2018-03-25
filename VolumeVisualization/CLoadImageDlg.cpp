@@ -27,43 +27,52 @@ CLoadImageDlg::~CLoadImageDlg()
 void CLoadImageDlg::InitWidget()
 {
 	//Dimens
-	m_pEdtDimX = new QLineEdit( "256" );
+	m_pEdtDimX = new QLineEdit( "512" );
 	m_pEdtDimX->setValidator( new QIntValidator( 1, 4096 ) );
-	m_pEdtDimY = new QLineEdit( "256" );
+	m_pEdtDimX->setFixedHeight( 25 );
+	m_pEdtDimY = new QLineEdit( "512" );
 	m_pEdtDimY->setValidator( new QIntValidator( 1, 4096 ) );
-	m_pEdtDimZ = new QLineEdit( "256" );
+	m_pEdtDimY->setFixedHeight( 25 );
+	m_pEdtDimZ = new QLineEdit( "64" );
 	m_pEdtDimZ->setValidator( new QIntValidator( 1, 4096 ) );
+	m_pEdtDimZ->setFixedHeight( 25 );
 
 	//Pixel Size
 	m_pSpbPixelX = new QDoubleSpinBox;
 	m_pSpbPixelX->setValue( 0.4 );
 	m_pSpbPixelX->setRange( 0.05, 2 );
 	m_pSpbPixelX->setSingleStep( 0.05 );
+	m_pSpbPixelX->setFixedHeight( 25 );
 	
 	m_pSpbPixelY = new QDoubleSpinBox;
 	m_pSpbPixelY->setValue( 0.4 );
 	m_pSpbPixelY->setRange( 0.05, 2 );
 	m_pSpbPixelY->setSingleStep( 0.05 );
+	m_pSpbPixelY->setFixedHeight( 25 );
 	
 	m_pSpbPixelZ = new QDoubleSpinBox;
-	m_pSpbPixelZ->setValue( 0.4 );
+	m_pSpbPixelZ->setValue( 1.8 );
 	m_pSpbPixelZ->setRange( 0.05, 2 );
 	m_pSpbPixelZ->setSingleStep( 0.05 );
+	m_pSpbPixelZ->setFixedHeight( 25 );
 	
 	//Offset
-	m_pEdtOffset = new QLineEdit( "0" );
+	m_pEdtOffset = new QLineEdit( "2048" );
 	m_pEdtOffset->setValidator( new QIntValidator( 0, 8192 ) );
+	m_pEdtOffset->setFixedHeight( 25 );
 	
 	//Image Data Type
 	m_pCmbDataType = new QComboBox;
 	m_pCmbDataType->addItem( "Char" );
 	m_pCmbDataType->addItem( "Short" );
 	m_pCmbDataType->addItem( "Float" );
+	m_pCmbDataType->setFixedHeight( 25 );
 
 	//File Path
 	m_pEdtFilePath = new QLineEdit;
 	m_pEdtFilePath->isReadOnly();
 	QPushButton* pBtnBroswer = new QPushButton( tr( "Broswer..." ) );
+	pBtnBroswer->setFixedHeight( 25 );
 
 	//Btn
 	QPushButton* pBtnOk = new QPushButton( tr( "Ok" ) );

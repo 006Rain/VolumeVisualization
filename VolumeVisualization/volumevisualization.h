@@ -16,6 +16,7 @@ public:
 
 protected slots:
 	void slotBtnLoad();
+	void slotBtnOpacity();
 
 private:
 	void InitWidget();

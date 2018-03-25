@@ -125,13 +125,13 @@ void CVtkVolumeWidget::UpdateImage()
 
 	//opacity func
 	vtkSmartPointer<vtkPiecewiseFunction> compositeOpacity = vtkSmartPointer<vtkPiecewiseFunction>::New();
-	compositeOpacity->AddPoint( 0, 0.0 );
-	compositeOpacity->AddPoint( 20, 0.0 );
-	compositeOpacity->AddPoint( 40, 0.15 );
-	compositeOpacity->AddPoint( 120, 0.3 );
-	compositeOpacity->AddPoint( 1220, 0.375 );
-	compositeOpacity->AddPoint( 1024, 0.5 );
-	m_pVolumeProperty->SetScalarOpacity( compositeOpacity );
+	compositeOpacity->AddPoint(0, 0.0);
+	compositeOpacity->AddPoint(20, 0.0);
+	compositeOpacity->AddPoint(40, 0.15);
+	compositeOpacity->AddPoint(120, 0.3);
+	compositeOpacity->AddPoint(1220, 0.375);
+	compositeOpacity->AddPoint(1024, 0.5);
+	m_pVolumeProperty->SetScalarOpacity(compositeOpacity);
 
 	//color transfer func
 	vtkSmartPointer<vtkColorTransferFunction> colorTransFunc = vtkSmartPointer<vtkColorTransferFunction>::New();
@@ -143,6 +143,7 @@ void CVtkVolumeWidget::UpdateImage()
 	colorTransFunc->AddRGBPoint( 1024, 1, 1, 1 );
 	m_pVolumeProperty->SetColor( colorTransFunc );
 
+	//Volume
 	vtkSmartPointer<vtkGPUVolumeRayCastMapper> volumeMapper = vtkSmartPointer<vtkGPUVolumeRayCastMapper>::New();
 	volumeMapper->SetInputData( pImageData );
 
@@ -178,7 +179,7 @@ void CVtkVolumeWidget::UpdateVolumeProperty( const VolumePropertyInfo& volPreset
 		++iter;
 	}
 
-	// 	pColorTransferFunction->SetScaleToLinear();
+	pColorTransferFunction->SetScaleToLinear();
 	m_pVolumeProperty->SetColor( pColorTransferFunction );
 
 	//2.设置Opacity（不透明度传输函数）
