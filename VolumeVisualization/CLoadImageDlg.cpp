@@ -39,20 +39,23 @@ void CLoadImageDlg::InitWidget()
 
 	//Pixel Size
 	m_pSpbPixelX = new QDoubleSpinBox;
-	m_pSpbPixelX->setValue( 0.4 );
-	m_pSpbPixelX->setRange( 0.05, 2 );
+	m_pSpbPixelX->setValue( 0.49 );
+	m_pSpbPixelX->setRange( 0.05, 5 );
+	m_pSpbPixelX->setDecimals( 5 );
 	m_pSpbPixelX->setSingleStep( 0.05 );
 	m_pSpbPixelX->setFixedHeight( 25 );
 	
 	m_pSpbPixelY = new QDoubleSpinBox;
-	m_pSpbPixelY->setValue( 0.4 );
-	m_pSpbPixelY->setRange( 0.05, 2 );
+	m_pSpbPixelY->setValue( 0.49 );
+	m_pSpbPixelY->setRange( 0.05, 5 );
+	m_pSpbPixelY->setDecimals( 5 );
 	m_pSpbPixelY->setSingleStep( 0.05 );
 	m_pSpbPixelY->setFixedHeight( 25 );
 	
 	m_pSpbPixelZ = new QDoubleSpinBox;
-	m_pSpbPixelZ->setValue( 1.8 );
-	m_pSpbPixelZ->setRange( 0.05, 2 );
+	m_pSpbPixelZ->setValue( 2.5 );
+	m_pSpbPixelZ->setRange( 0.05, 5 );
+	m_pSpbPixelZ->setDecimals( 5 );
 	m_pSpbPixelZ->setSingleStep( 0.05 );
 	m_pSpbPixelZ->setFixedHeight( 25 );
 	

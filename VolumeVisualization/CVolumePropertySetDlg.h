@@ -23,11 +23,9 @@ private:
 	void InitPropertyInfo();
 
 private:
-	VolumePropertyInfo m_stProperty_CT_AAA;
-	VolumePropertyInfo m_stProperty_CT_Bone;
-	VolumePropertyInfo m_stProperty_CT_Muscle;
-	VolumePropertyInfo m_stProperty_MR_MIP;
-	VolumePropertyInfo m_stProperty_MR_T2_Brain;
+	VolumePropertyInfo m_stProperty_CT_Default;
+	VolumePropertyInfo m_stProperty_CT_Bone1;
+	VolumePropertyInfo m_stProperty_CT_Bone2;
 };
 
 #endif // CVolumePropertySetDlg_H

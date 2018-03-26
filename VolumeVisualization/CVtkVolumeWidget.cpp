@@ -160,8 +160,6 @@ void CVtkVolumeWidget::UpdateImage()
 	vtkSmartPointer<vtkVolume> pVolume = vtkSmartPointer<vtkVolume>::New();
 	pVolume->SetMapper( volumeMapper );
 	pVolume->SetProperty( m_pVolumeProperty );
-	pVolume->RotateX( 90 );
-	pVolume->RotateZ( 180 );
 
 	//Render Window
 	m_pRenderer->AddVolume( pVolume );
