@@ -26,6 +26,7 @@ public:
 
 	void Reset();
 	void RemoveImage();
+	void RotateXYZ( int nX, int nY, int nZ );
 
 private:
 	vtkSmartPointer<vtkRenderer> m_pRenderer;

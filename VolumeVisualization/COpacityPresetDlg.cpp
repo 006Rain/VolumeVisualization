@@ -1,4 +1,4 @@
-﻿#include "CVolumePropertySetDlg.h"
+﻿#include "COpacityPresetDlg.h"
 
 #include <QPushButton>
 #include <QGridLayout>
@@ -6,11 +6,11 @@
 
 #include "CommonDef.h"
 
-CVolumePropertySetDlg::CVolumePropertySetDlg( QWidget *parent )
+COpacityPresetDlg::COpacityPresetDlg( QWidget *parent )
 	: QDialog( parent )
 {
 	setWindowIcon( QIcon( "./Images/logo.jpg" ) );
-	setWindowTitle( tr( "Set Property" ) );
+	setWindowTitle( tr( "Preset" ) );
 	setWindowFlags( Qt::WindowCloseButtonHint );
 	setFixedSize( 250, 300 );
 
@@ -18,12 +18,12 @@ CVolumePropertySetDlg::CVolumePropertySetDlg( QWidget *parent )
 	InitPropertyInfo();
 }
 
-CVolumePropertySetDlg::~CVolumePropertySetDlg()
+COpacityPresetDlg::~COpacityPresetDlg()
 {
 
 }
 
-void CVolumePropertySetDlg::InitWidget()
+void COpacityPresetDlg::InitWidget()
 {
 	QSignalMapper* pSignalMapper = new QSignalMapper();
 	connect( pSignalMapper, SIGNAL( mapped( const QString& ) ), this, SLOT( slotPropertyChanged( const QString& ) ) );
@@ -58,7 +58,7 @@ void CVolumePropertySetDlg::InitWidget()
 	setLayout( pMainLayout );
 }
 
-void CVolumePropertySetDlg::InitPropertyInfo()
+void COpacityPresetDlg::InitPropertyInfo()
 {
 	RGBA stRgba;
 	//m_stProperty_CT_Default
@@ -221,14 +221,14 @@ void CVolumePropertySetDlg::InitPropertyInfo()
 	m_stProperty_CT_Bone2.mapColor[ 32767 ] = stRgba;
 }
 
-void CVolumePropertySetDlg::slotPropertyChanged( const QString& strPropertyName )
+void COpacityPresetDlg::slotPropertyChanged( const QString& strPropertyName )
 {
 	if( "CT_Default" == strPropertyName )
-		emit sigPropertyChanged( m_stProperty_CT_Default );
+		emit sigOpacityChanged( m_stProperty_CT_Default );
 	else if( "CT_Body" == strPropertyName )
-		emit sigPropertyChanged( m_stProperty_CT_Body );
+		emit sigOpacityChanged( m_stProperty_CT_Body );
 	else if( "CT_Bone1" == strPropertyName )
-		emit sigPropertyChanged( m_stProperty_CT_Bone1 );
+		emit sigOpacityChanged( m_stProperty_CT_Bone1 );
 	else if( "CT_Bone2" == strPropertyName )
-		emit sigPropertyChanged( m_stProperty_CT_Bone2 );
+		emit sigOpacityChanged( m_stProperty_CT_Bone2 );
 }

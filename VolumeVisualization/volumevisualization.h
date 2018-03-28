@@ -6,7 +6,6 @@
 
 class QPushButton;
 class CVtkVolumeWidget;
-class CVolumePropertySetDlg;
 
 struct VolumePropertyInfo;
 
@@ -21,12 +20,10 @@ public:
 protected slots:
 	void slotBtnLoad();
 	void slotBtnRemove();
-	void slotBtnOpacity();
-	void slotBtnReset();
+	void slotResetPosition();
 	void slotOpacityInfoChanged( const VolumePropertyInfo& stRGBA );
 
-protected:
-	virtual void closeEvent( QCloseEvent * );
+	void slotRotateXYZ( int, int, int );
 
 private:
 	void InitWidget();
@@ -38,10 +35,6 @@ private:
 
 	//Buttons
 	QPushButton* m_pBtnRemove;
-	QPushButton* m_pBtnOpacity;
-	QPushButton* m_pBtnReset;
-
-	CVolumePropertySetDlg* m_pOpacityDlg;
 };
 
 #endif // VOLUMEVISUALIZATION_H

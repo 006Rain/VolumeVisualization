@@ -1,19 +1,19 @@
-#ifndef CVolumePropertySetDlg_H
-#define CVolumePropertySetDlg_H
+#ifndef COpacityPresetDlg_H
+#define COpacityPresetDlg_H
 
 #include <QDialog>
 #include "CommonDef.h"
 
-class CVolumePropertySetDlg : public QDialog
+class COpacityPresetDlg : public QDialog
 {
 	Q_OBJECT
 
 public:
-	CVolumePropertySetDlg( QWidget *parent = 0 );
-	~CVolumePropertySetDlg();
+	COpacityPresetDlg( QWidget *parent = 0 );
+	~COpacityPresetDlg();
 
 signals:
-	void sigPropertyChanged( const VolumePropertyInfo& stProperty );
+	void sigOpacityChanged( const VolumePropertyInfo& stProperty );
 	
 protected slots:
 	void slotPropertyChanged( const QString& );
@@ -29,4 +29,4 @@ private:
 	VolumePropertyInfo m_stProperty_CT_Bone2;
 };
 
-#endif // CVolumePropertySetDlg_H
+#endif // COpacityPresetDlg_H

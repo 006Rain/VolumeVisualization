@@ -254,3 +254,15 @@ void CVtkVolumeWidget::RemoveImage()
 	m_pRenderer->Modified();
 	m_pRenderWindow->Render();
 }
+
+#include "vtkImageActor.h"
+void CVtkVolumeWidget::RotateXYZ( int nX, int nY, int nZ )
+{
+	vtkCamera* pCamera = m_pRenderer->GetActiveCamera();
+	pCamera->Elevation( nX );
+	pCamera->Azimuth( nY );
+	pCamera->Roll( nZ );
+
+	m_pRenderer->ResetCamera();
+	m_pRenderWindow->Render();
+}
