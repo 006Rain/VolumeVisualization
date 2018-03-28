@@ -22,8 +22,7 @@ VolumeVisualization::VolumeVisualization( QWidget *parent )
 
 VolumeVisualization::~VolumeVisualization()
 {
-	if( m_pOpacityDlg )
-		m_pOpacityDlg->close();
+	
 }
 
 void VolumeVisualization::InitWidget()
@@ -31,19 +30,34 @@ void VolumeVisualization::InitWidget()
 	//Volume Widget
 	m_pVolumeWidget = new CVtkVolumeWidget;
 
-	//Btn
+	/*Buttons*/
+	//Load Image
 	QPushButton* pBtnLoad = new QPushButton( tr( "Load" ) );
 	pBtnLoad->setFixedSize( 80, 30 );
+	//Remove
+	m_pBtnRemove = new QPushButton( tr( "Remove" ) );
+	m_pBtnRemove->setFixedSize( 80, 30 );
+	m_pBtnRemove->setEnabled( false );
 
+	//Property
 	m_pBtnOpacity = new QPushButton( tr( "Property" ) );
 	m_pBtnOpacity->setFixedSize( 80, 30 );
 	m_pBtnOpacity->setEnabled( false );
+
+	//Reset
+	m_pBtnReset = new QPushButton( tr( "Reset" ) );
+	m_pBtnReset->setFixedSize( 80, 30 );
+	m_pBtnReset->setEnabled( false );
 	
 	QHBoxLayout* pBtnLayout = new QHBoxLayout;
 	pBtnLayout->addStretch();
 	pBtnLayout->addWidget( pBtnLoad );
 	pBtnLayout->addStretch();
+	pBtnLayout->addWidget( m_pBtnRemove );
+	pBtnLayout->addStretch();
 	pBtnLayout->addWidget( m_pBtnOpacity );
+	pBtnLayout->addStretch();
+	pBtnLayout->addWidget( m_pBtnReset );
 	pBtnLayout->addStretch();
 
 	//Opacity Dlg
@@ -59,7 +73,9 @@ void VolumeVisualization::InitWidget()
 	
 	//connects sigOpacityInfo
 	connect( pBtnLoad, SIGNAL( clicked() ), this, SLOT( slotBtnLoad() ) );
+	connect( m_pBtnRemove, SIGNAL( clicked() ), this, SLOT( slotBtnRemove() ) );
 	connect( m_pBtnOpacity, SIGNAL( clicked() ), this, SLOT( slotBtnOpacity() ) );
+	connect( m_pBtnReset, SIGNAL( clicked() ), this, SLOT( slotBtnReset() ) );
 	connect( m_pOpacityDlg, SIGNAL( sigPropertyChanged( const VolumePropertyInfo& ) ), this, SLOT( slotOpacityInfoChanged( const VolumePropertyInfo& ) ) );
 }
 
@@ -79,15 +95,37 @@ void VolumeVisualization::slotBtnLoad()
 	m_pVolumeWidget->UpdateImage();
 
 	m_pBtnOpacity->setEnabled( true );
+	m_pBtnReset->setEnabled( true );
+	m_pBtnRemove->setEnabled( true );
 	return;
+}
+
+void VolumeVisualization::slotBtnRemove()
+{
+	if( m_pVolumeWidget )
+		m_pVolumeWidget->RemoveImage();
 }
 
 void VolumeVisualization::slotBtnOpacity()
 {
-	m_pOpacityDlg->show();
+	if( m_pOpacityDlg )
+		m_pOpacityDlg->show();
+}
+
+void VolumeVisualization::slotBtnReset()
+{
+	if( m_pVolumeWidget )
+		m_pVolumeWidget->Reset();
 }
 
 void VolumeVisualization::slotOpacityInfoChanged( const VolumePropertyInfo& stPropertyInfo )
 {
-	m_pVolumeWidget->UpdateVolumeProperty( stPropertyInfo );
+	if( m_pVolumeWidget )
+		m_pVolumeWidget->UpdateVolumeProperty( stPropertyInfo );
+}
+
+void VolumeVisualization::closeEvent( QCloseEvent *pEvent )
+{
+	if( m_pOpacityDlg )
+		m_pOpacityDlg->close();
 }

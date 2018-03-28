@@ -20,8 +20,13 @@ public:
 
 protected slots:
 	void slotBtnLoad();
+	void slotBtnRemove();
 	void slotBtnOpacity();
+	void slotBtnReset();
 	void slotOpacityInfoChanged( const VolumePropertyInfo& stRGBA );
+
+protected:
+	virtual void closeEvent( QCloseEvent * );
 
 private:
 	void InitWidget();
@@ -31,7 +36,11 @@ private:
 
 	CVtkVolumeWidget* m_pVolumeWidget;
 
+	//Buttons
+	QPushButton* m_pBtnRemove;
 	QPushButton* m_pBtnOpacity;
+	QPushButton* m_pBtnReset;
+
 	CVolumePropertySetDlg* m_pOpacityDlg;
 };
 

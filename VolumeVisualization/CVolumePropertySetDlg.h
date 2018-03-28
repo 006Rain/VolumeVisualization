@@ -24,6 +24,7 @@ private:
 
 private:
 	VolumePropertyInfo m_stProperty_CT_Default;
+	VolumePropertyInfo m_stProperty_CT_Body;
 	VolumePropertyInfo m_stProperty_CT_Bone1;
 	VolumePropertyInfo m_stProperty_CT_Bone2;
 };

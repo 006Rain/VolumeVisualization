@@ -14,6 +14,7 @@ CLoadImageDlg::CLoadImageDlg( QWidget *parent )
 {
 	setWindowIcon( QIcon( "./Images/logo.jpg" ) );
 	setWindowTitle( tr( "Load Image" ) );
+	setWindowFlags( Qt::WindowCloseButtonHint );
 	setFixedSize( 500, 280 );
 
 	InitWidget();
@@ -160,7 +161,5 @@ void CLoadImageDlg::slotBtnBroswer()
 
 void CLoadImageDlg::accept()
 {
-	//...
-	
 	QDialog::accept();
 }

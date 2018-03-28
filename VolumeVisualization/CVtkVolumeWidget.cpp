@@ -16,6 +16,7 @@ VTK_MODULE_INIT( vtkInteractionStyle );
 #include "vtkPiecewiseFunction.h"
 #include "vtkGPUVolumeRayCastMapper.h"
 #include "vtkColorTransferFunction.h"
+#include "vtkCamera.h"
 
 #include "CommonDef.h"
 
@@ -29,7 +30,6 @@ CVtkVolumeWidget::CVtkVolumeWidget( QWidget *parent )
 
 	m_pRenderWindow->AddRenderer( m_pRenderer );
 	this->SetRenderWindow( m_pRenderWindow );
-	//m_pRenderWindow->GetInteractor()->SetInteractorStyle( 0 );
 
 	/*Init Property Info*/
 	m_pVolumeProperty = vtkSmartPointer<vtkVolumeProperty>::New();
@@ -219,4 +219,38 @@ void CVtkVolumeWidget::UpdateVolumeProperty( const VolumePropertyInfo& volPreset
 VolumePropertyInfo CVtkVolumeWidget::GetVolumeProperty()
 {
 	return m_stPropertyInfo;
+}
+
+void CVtkVolumeWidget::Reset()
+{
+	//Zoom
+	double dZoom = 1.0;
+	vtkCamera* pCamera = m_pRenderer->GetActiveCamera();
+	if( !pCamera )
+		return;
+	pCamera->SetParallelScale( dZoom );
+
+	//Position
+	double dFocusPoint[ 3 ] = { 0.0 };
+	pCamera->GetFocalPoint( dFocusPoint );
+	float fDistance = pCamera->GetDistance();
+
+	pCamera->SetPosition( dFocusPoint[ 0 ], dFocusPoint[ 1 ], dFocusPoint[ 2 ] + fDistance );
+	pCamera->SetViewUp( 0, 1, 0 );
+
+	//RenderWindow
+	m_pRenderer->ResetCamera();
+	m_pRenderWindow->Render();
+}
+
+void CVtkVolumeWidget::RemoveImage()
+{
+	/*
+	If u want to delete single Image on vtkRenderer,
+	please manage the images loaded by yourself.
+	*/
+	m_pRenderer->RemoveAllViewProps();//Delete All Images
+
+	m_pRenderer->Modified();
+	m_pRenderWindow->Render();
 }

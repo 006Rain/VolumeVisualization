@@ -24,6 +24,9 @@ public:
 	void UpdateVolumeProperty( const VolumePropertyInfo& stOpacityColors );
 	VolumePropertyInfo GetVolumeProperty();
 
+	void Reset();
+	void RemoveImage();
+
 private:
 	vtkSmartPointer<vtkRenderer> m_pRenderer;
 	vtkSmartPointer<vtkRenderWindow> m_pRenderWindow;

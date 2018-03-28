@@ -11,7 +11,8 @@ CVolumePropertySetDlg::CVolumePropertySetDlg( QWidget *parent )
 {
 	setWindowIcon( QIcon( "./Images/logo.jpg" ) );
 	setWindowTitle( tr( "Set Property" ) );
-	setFixedSize( 500, 280 );
+	setWindowFlags( Qt::WindowCloseButtonHint );
+	setFixedSize( 250, 300 );
 
 	InitWidget();
 	InitPropertyInfo();
@@ -29,25 +30,31 @@ void CVolumePropertySetDlg::InitWidget()
 
 	//Buttons
 	QPushButton* pBtnCT_Default = new QPushButton( "CT_Default" );
-	pBtnCT_Default->setFixedHeight( 30 );
+	pBtnCT_Default->setFixedSize( 200, 30 );
 	connect( pBtnCT_Default, SIGNAL( clicked() ), pSignalMapper, SLOT( map() ) );
 	pSignalMapper->setMapping( pBtnCT_Default, "CT_Default" );
 
+	QPushButton* pBtnCT_Head = new QPushButton( "CT_Body" );
+	pBtnCT_Head->setFixedSize( 200, 30 );
+	connect( pBtnCT_Head, SIGNAL( clicked() ), pSignalMapper, SLOT( map() ) );
+	pSignalMapper->setMapping( pBtnCT_Head, "CT_Body" );
+
 	QPushButton* pBtnCT_Bone1 = new QPushButton( "CT_Bone1" );
-	pBtnCT_Bone1->setFixedHeight( 30 );
+	pBtnCT_Bone1->setFixedSize( 200, 30 );
 	connect( pBtnCT_Bone1, SIGNAL( clicked() ), pSignalMapper, SLOT( map() ) );
 	pSignalMapper->setMapping( pBtnCT_Bone1, "CT_Bone1" );
 
 	QPushButton* pBtnCT_Bone2 = new QPushButton( "CT_Bone2" );
-	pBtnCT_Bone2->setFixedHeight( 30 );
+	pBtnCT_Bone2->setFixedSize( 200, 30 );
 	connect( pBtnCT_Bone2, SIGNAL( clicked() ), pSignalMapper, SLOT( map() ) );
 	pSignalMapper->setMapping( pBtnCT_Bone2, "CT_Bone2" );
 
 	//Main Layout
 	QGridLayout* pMainLayout = new QGridLayout;
 	pMainLayout->addWidget( pBtnCT_Default, 0, 0 );
-	pMainLayout->addWidget( pBtnCT_Bone1, 0, 1 );
-	pMainLayout->addWidget( pBtnCT_Bone2, 1, 0 );
+	pMainLayout->addWidget( pBtnCT_Head, 1, 0 );
+	pMainLayout->addWidget( pBtnCT_Bone1, 2, 0 );
+	pMainLayout->addWidget( pBtnCT_Bone2, 3, 0 );
 	setLayout( pMainLayout );
 }
 
@@ -89,6 +96,48 @@ void CVolumePropertySetDlg::InitPropertyInfo()
 	m_stProperty_CT_Default.fMax = 3071;
 	m_stProperty_CT_Default.fMin = -3024;
 
+	//m_stProperty_CT_Body
+	m_stProperty_CT_Body.bClamping = true;
+	m_stProperty_CT_Body.bShade = true;
+	m_stProperty_CT_Body.dAmbient = 0.4;
+	m_stProperty_CT_Body.dDiffuse = 0.6;
+	m_stProperty_CT_Body.dSpecular = 2;
+	m_stProperty_CT_Body.fMax = 32767;
+	m_stProperty_CT_Body.fMin = -15591;
+	m_stProperty_CT_Body.mapOpacity[ -15591 ] = 0;
+	m_stProperty_CT_Body.mapOpacity[ 4876.7858 ] = 0.0001;
+	m_stProperty_CT_Body.mapOpacity[ 7961.4381 ] = 1;
+	m_stProperty_CT_Body.mapOpacity[ 11110.3194 ] = 0.001;
+	m_stProperty_CT_Body.mapOpacity[ 32767 ] = 0;
+
+	m_stProperty_CT_Body.mapColor.clear();
+	stRgba.m_nA = 255;
+	stRgba.m_nR = 255;
+	stRgba.m_nG = 0;
+	stRgba.m_nB = 0;
+	m_stProperty_CT_Body.mapColor[ -15591 ] = stRgba;
+
+	stRgba.m_nR = 255;
+	stRgba.m_nG = 255;
+	stRgba.m_nB = 0;
+	m_stProperty_CT_Body.mapColor[ 571.1527 ] = stRgba;
+
+	stRgba.m_nR = 0;
+	stRgba.m_nG = 255;
+	stRgba.m_nB = 0;
+	m_stProperty_CT_Body.mapColor[ 7190.2893 ] = stRgba;
+
+	stRgba.m_nR = 0;
+	stRgba.m_nG = 255;
+	stRgba.m_nB = 255;
+	m_stProperty_CT_Body.mapColor[ 14644.8037 ] = stRgba;
+
+	stRgba.m_nR = 0;
+	stRgba.m_nG = 0;
+	stRgba.m_nB = 255;
+	m_stProperty_CT_Bone1.mapColor[ 32767 ] = stRgba;
+
+
 	//m_stProperty_CT_Bone1
 	m_stProperty_CT_Bone1.bShade = true;
 	m_stProperty_CT_Bone1.dAmbient = 0.4;
@@ -99,7 +148,7 @@ void CVolumePropertySetDlg::InitPropertyInfo()
 	m_stProperty_CT_Bone1.mapOpacity.clear();
 	m_stProperty_CT_Bone1.mapOpacity[ -15591 ] = 0;
 	m_stProperty_CT_Bone1.mapOpacity[ 571.1527 ] = 0;
-	m_stProperty_CT_Bone1.mapOpacity[ 7190.2893 ] = 0.994444;
+	m_stProperty_CT_Bone1.mapOpacity[ 7190.2893 ] = 1;
 	m_stProperty_CT_Bone1.mapOpacity[ 14644.8037 ] = 0;
 	m_stProperty_CT_Bone1.mapOpacity[ 32767 ] = 0;
 
@@ -176,6 +225,8 @@ void CVolumePropertySetDlg::slotPropertyChanged( const QString& strPropertyName 
 {
 	if( "CT_Default" == strPropertyName )
 		emit sigPropertyChanged( m_stProperty_CT_Default );
+	else if( "CT_Body" == strPropertyName )
+		emit sigPropertyChanged( m_stProperty_CT_Body );
 	else if( "CT_Bone1" == strPropertyName )
 		emit sigPropertyChanged( m_stProperty_CT_Bone1 );
 	else if( "CT_Bone2" == strPropertyName )
