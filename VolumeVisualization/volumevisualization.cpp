@@ -17,7 +17,7 @@ VolumeVisualization::VolumeVisualization( QWidget *parent )
 	ui.setupUi( this );
 	setWindowIcon( QIcon( "./Images/logo.jpg" ) );
 	setWindowTitle( tr( "Volume Visualization" ) );
-	setFixedSize( 1000, 600 );
+	setFixedSize( 1000, 680 );
 
 	InitWidget();
 }
@@ -37,11 +37,11 @@ void VolumeVisualization::InitWidget()
 
 	//Rotate
 	CRotateSetWidget* pRotateWidget = new CRotateSetWidget;
-	pRotateWidget->setFixedSize( 250, 150 );
+	pRotateWidget->setFixedSize( 280, 150 );
 
 	//Opacity
 	COpacitySetWidget* pOpacityWidget = new COpacitySetWidget;
-//	pRotateWidget->setFixedSize( 250, 120 );
+	pOpacityWidget->setFixedWidth( 280 );
 
 	//Left Layout
 	QGridLayout* pLeftLayout = new QGridLayout;
