@@ -107,6 +107,7 @@ void CVtkVolumeWidget::UpdateImage()
 		return;
 	file.seek( m_stImageParam.nOffset );
 
+	float fMin = -1e7, fMax = 1e7;
 	switch( m_stImageParam.eDataType )
 	{
 	case Char:
@@ -120,6 +121,8 @@ void CVtkVolumeWidget::UpdateImage()
 		pImageData->AllocateScalars( VTK_SIGNED_CHAR, 1 );
 		char* pScalarPointer = (char*)pImageData->GetScalarPointer();
 		memcpy( pScalarPointer, pRawData, lLength );
+
+		GetMaxMinValue( pScalarPointer, fMax, fMin, lLength );
 	}
 		break;
 	case Short:
@@ -134,6 +137,8 @@ void CVtkVolumeWidget::UpdateImage()
 		short* pScalarPointer = (short*)pImageData->GetScalarPointer();
 		short* pData = (short*)pRawData;
 		memcpy( pScalarPointer, pData, lLength );
+
+		GetMaxMinValue( pScalarPointer, fMax, fMin, lLength );
 	}
 		break;
 	case Float:
@@ -148,10 +153,14 @@ void CVtkVolumeWidget::UpdateImage()
 		float* pScalarPointer = (float*)pImageData->GetScalarPointer();
 		float* pData = (float*)pRawData;
 		memcpy( pScalarPointer, pData, lLength );
+
+		GetMaxMinValue( pScalarPointer, fMax, fMin, lLength );
 	}
 		break;
 	}
 	file.close();
+	m_fPixelMax = fMax;
+	m_fPixelMin = fMin;
 
 	//Volume
 	vtkSmartPointer<vtkGPUVolumeRayCastMapper> volumeMapper = vtkSmartPointer<vtkGPUVolumeRayCastMapper>::New();
@@ -265,4 +274,11 @@ void CVtkVolumeWidget::RotateXYZ( int nX, int nY, int nZ )
 
 	m_pRenderer->ResetCamera();
 	m_pRenderWindow->Render();
+}
+
+void CVtkVolumeWidget::GetMaxMinPixelValue( float& fMax, float& fMin )
+{
+	fMax = m_fPixelMax;
+	fMin = m_fPixelMin;
+	return;
 }

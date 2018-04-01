@@ -6,6 +6,7 @@
 
 class QPushButton;
 class CVtkVolumeWidget;
+class COpacitySetWidget;
 
 struct VolumePropertyInfo;
 
@@ -32,6 +33,7 @@ private:
 	Ui::VolumeVisualizationClass ui;
 
 	CVtkVolumeWidget* m_pVolumeWidget;
+	COpacitySetWidget* m_pOpacityWidget;
 
 	//Buttons
 	QPushButton* m_pBtnRemove;

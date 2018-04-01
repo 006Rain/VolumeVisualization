@@ -28,6 +28,8 @@ public:
 	void RemoveImage();
 	void RotateXYZ( int nX, int nY, int nZ );
 
+	void GetMaxMinPixelValue( float& fMax, float& fMin );
+
 private:
 	vtkSmartPointer<vtkRenderer> m_pRenderer;
 	vtkSmartPointer<vtkRenderWindow> m_pRenderWindow;
@@ -36,6 +38,9 @@ private:
 
 	ImageParams m_stImageParam;
 	VolumePropertyInfo m_stPropertyInfo;
+
+	float m_fPixelMax;
+	float m_fPixelMin;
 };
 
 #endif // CVOLUMEWIDGET_H

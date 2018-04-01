@@ -44,12 +44,43 @@ struct RGBA
 	int	m_nG;
 	int	m_nB;
 	int	m_nA;
+
+	RGBA( int nR, int nG, int nB, int nA )
+	{
+		m_nR = nR;
+		m_nG = nG;
+		m_nB = nB;
+		m_nA = nA;
+	}
+
+	RGBA( const RGBA& other )
+	{
+		m_nR = other.m_nR;
+		m_nG = other.m_nG;
+		m_nB = other.m_nB;
+		m_nA = other.m_nA;
+	}
+
 	RGBA()
 	{
 		m_nR = 0;
 		m_nG = 0;
 		m_nB = 0;
 		m_nA = 255;
+	}
+};
+
+struct OpacityParam
+{
+	float fPixelValueMin;
+	float fPixelValueMax;
+
+	QMap<float, RGBA>		mapOpacity;
+
+	OpacityParam()
+	{
+		fPixelValueMin = 0.0;
+		fPixelValueMax = 0.0;
 	}
 };
 
@@ -118,3 +149,20 @@ struct VolumePropertyInfo
 		dSpecular = 0.2;
 	}
 };
+
+template<typename T>
+inline void GetMaxMinValue( T* pData, float& fMax, float& fMin, int nSize )
+{
+	if( nSize < 0 )
+		return;
+	fMin = pData[ 0 ];
+	fMax = pData[ 0 ];
+	for( int n = 1; n < nSize; n++ )
+	{
+		if( fMax < pData[ n ] )
+			fMax = pData[ n ];
+		if( fMin > pData[ n ] )
+			fMin = pData[ n ];
+	}
+	return;
+}

@@ -28,13 +28,13 @@ CLoadImageDlg::~CLoadImageDlg()
 void CLoadImageDlg::InitWidget()
 {
 	//Dimens
-	m_pEdtDimX = new QLineEdit( "512" );
+	m_pEdtDimX = new QLineEdit( "256" );
 	m_pEdtDimX->setValidator( new QIntValidator( 1, 4096 ) );
 	m_pEdtDimX->setFixedHeight( 25 );
-	m_pEdtDimY = new QLineEdit( "512" );
+	m_pEdtDimY = new QLineEdit( "256" );
 	m_pEdtDimY->setValidator( new QIntValidator( 1, 4096 ) );
 	m_pEdtDimY->setFixedHeight( 25 );
-	m_pEdtDimZ = new QLineEdit( "64" );
+	m_pEdtDimZ = new QLineEdit( "256" );
 	m_pEdtDimZ->setValidator( new QIntValidator( 1, 4096 ) );
 	m_pEdtDimZ->setFixedHeight( 25 );
 
@@ -54,14 +54,14 @@ void CLoadImageDlg::InitWidget()
 	m_pSpbPixelY->setFixedHeight( 25 );
 	
 	m_pSpbPixelZ = new QDoubleSpinBox;
-	m_pSpbPixelZ->setValue( 2.5 );
+	m_pSpbPixelZ->setValue( 0.49 );
 	m_pSpbPixelZ->setRange( 0.05, 5 );
 	m_pSpbPixelZ->setDecimals( 5 );
 	m_pSpbPixelZ->setSingleStep( 0.05 );
 	m_pSpbPixelZ->setFixedHeight( 25 );
 	
 	//Offset
-	m_pEdtOffset = new QLineEdit( "2048" );
+	m_pEdtOffset = new QLineEdit( "0" );
 	m_pEdtOffset->setValidator( new QIntValidator( 0, 8192 ) );
 	m_pEdtOffset->setFixedHeight( 25 );
 	
@@ -70,7 +70,7 @@ void CLoadImageDlg::InitWidget()
 	m_pCmbDataType->addItem( "Char" );
 	m_pCmbDataType->addItem( "Short" );
 	m_pCmbDataType->addItem( "Float" );
-	m_pCmbDataType->setCurrentIndex( 1 );
+	//m_pCmbDataType->setCurrentIndex( 1 );
 	m_pCmbDataType->setFixedHeight( 25 );
 
 	//File Path

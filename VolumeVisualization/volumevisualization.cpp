@@ -40,13 +40,13 @@ void VolumeVisualization::InitWidget()
 	pRotateWidget->setFixedSize( 280, 150 );
 
 	//Opacity
-	COpacitySetWidget* pOpacityWidget = new COpacitySetWidget;
-	pOpacityWidget->setFixedWidth( 280 );
+	m_pOpacityWidget = new COpacitySetWidget;
+	m_pOpacityWidget->setFixedWidth( 280 );
 
 	//Left Layout
 	QGridLayout* pLeftLayout = new QGridLayout;
 	pLeftLayout->addWidget( pRotateWidget, 0, 0 );
-	pLeftLayout->addWidget( pOpacityWidget, 1, 0 );
+	pLeftLayout->addWidget( m_pOpacityWidget, 1, 0 );
 
 	/*Buttons*/
 	//Load Image
@@ -74,10 +74,10 @@ void VolumeVisualization::InitWidget()
 	pMainLayout->setSpacing( 15 );
 	setLayout( pMainLayout );
 	
-	//connects sigOpacityInfo
+	//connects 
 	connect( pBtnLoad, SIGNAL( clicked() ), this, SLOT( slotBtnLoad() ) );
 	connect( m_pBtnRemove, SIGNAL( clicked() ), this, SLOT( slotBtnRemove() ) );
-	connect( pOpacityWidget, SIGNAL( sigOpacityChanged( const VolumePropertyInfo& ) ), this, SLOT( slotOpacityInfoChanged( const VolumePropertyInfo& ) ) );
+	connect( m_pOpacityWidget, SIGNAL( sigOpacityChanged( const VolumePropertyInfo& ) ), this, SLOT( slotOpacityInfoChanged( const VolumePropertyInfo& ) ) );
 	connect( pRotateWidget, SIGNAL( sigRotateXYZ( int, int, int ) ), this, SLOT( slotRotateXYZ( int, int, int ) ) );
 	connect( pRotateWidget, SIGNAL( sigResetPosition() ), this, SLOT( slotResetPosition() ) );
 }
@@ -96,6 +96,9 @@ void VolumeVisualization::slotBtnLoad()
 
 	m_pVolumeWidget->SetImageParam( stParam );
 	m_pVolumeWidget->UpdateImage();
+	float fMax, fMin;
+	m_pVolumeWidget->GetMaxMinPixelValue( fMax, fMin );
+	m_pOpacityWidget->SetPixelValueRange( fMin, fMax );
 
 	m_pBtnRemove->setEnabled( true );
 	return;
