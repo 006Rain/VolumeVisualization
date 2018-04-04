@@ -127,11 +127,11 @@ void CVtkVolumeWidget::UpdateImage()
 		break;
 	case Short:
 	{
-		long lLength = nDims[ 0 ] * nDims[ 1 ] * nDims[ 2 ] * 2;
-		char* pRawData = new char[ lLength ];
+		long lLength = nDims[ 0 ] * nDims[ 1 ] * nDims[ 2 ] ;
+		char* pRawData = new char[ lLength * 2 ];
 		long lRead = 0;
-		while( lRead < lLength )
-			lRead += file.read( pRawData, lLength );
+		while( lRead < lLength * 2 )
+			lRead += file.read( pRawData, lLength * 2 );
 
 		pImageData->AllocateScalars( VTK_SHORT, 1 );
 		short* pScalarPointer = (short*)pImageData->GetScalarPointer();
@@ -143,11 +143,11 @@ void CVtkVolumeWidget::UpdateImage()
 		break;
 	case Float:
 	{
-		long lLength = nDims[ 0 ] * nDims[ 1 ] * nDims[ 2 ] * 4;
-		char* pRawData = new char[ lLength ];
+		long lLength = nDims[ 0 ] * nDims[ 1 ] * nDims[ 2 ];
+		char* pRawData = new char[ lLength * 4 ];
 		long lRead = 0;
-		while( lRead < lLength )
-			lRead += file.read( pRawData, lLength );
+		while( lRead < lLength * 4 )
+			lRead += file.read( pRawData, lLength * 4 );
 
 		pImageData->AllocateScalars( VTK_FLOAT, 1 );
 		float* pScalarPointer = (float*)pImageData->GetScalarPointer();
@@ -166,12 +166,12 @@ void CVtkVolumeWidget::UpdateImage()
 	vtkSmartPointer<vtkGPUVolumeRayCastMapper> volumeMapper = vtkSmartPointer<vtkGPUVolumeRayCastMapper>::New();
 	volumeMapper->SetInputData( pImageData );
 
-	vtkSmartPointer<vtkVolume> pVolume = vtkSmartPointer<vtkVolume>::New();
-	pVolume->SetMapper( volumeMapper );
-	pVolume->SetProperty( m_pVolumeProperty );
+	m_pVolume->SetMapper( volumeMapper );
+	m_pVolume->SetProperty( m_pVolumeProperty );
+	m_pVolume->SetOrigin( m_pVolume->GetCenter() );
 
 	//Render Window
-	m_pRenderer->AddVolume( pVolume );
+	m_pRenderer->AddVolume( m_pVolume );
 	m_pRenderer->ResetCamera();
 	m_pRenderWindow->Modified();
 	m_pRenderWindow->Render();
@@ -264,15 +264,24 @@ void CVtkVolumeWidget::RemoveImage()
 	m_pRenderWindow->Render();
 }
 
-#include "vtkImageActor.h"
-void CVtkVolumeWidget::RotateXYZ( int nX, int nY, int nZ )
+void CVtkVolumeWidget::slotRotateX( int nX )
 {
-	vtkCamera* pCamera = m_pRenderer->GetActiveCamera();
-	pCamera->Elevation( nX );
-	pCamera->Azimuth( nY );
-	pCamera->Roll( nZ );
+	m_pVolume->RotateX( nX );
+	m_pVolume->Modified();
+	m_pRenderWindow->Render();
+}
 
-	m_pRenderer->ResetCamera();
+void CVtkVolumeWidget::slotRotateY( int nY )
+{
+	m_pVolume->RotateY( nY );
+	m_pVolume->Modified();
+	m_pRenderWindow->Render();
+}
+
+void CVtkVolumeWidget::slotRotateZ( int nZ )
+{
+	m_pVolume->RotateZ( nZ );
+	m_pVolume->Modified();
 	m_pRenderWindow->Render();
 }
 

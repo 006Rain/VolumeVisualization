@@ -14,11 +14,15 @@ public:
 	~CRotateSetWidget();
 
 signals:
-	void sigRotateXYZ( int, int, int );
+	void sigRotateX( int );
+	void sigRotateY( int );
+	void sigRotateZ( int );
 	void sigResetPosition();
 
 protected slots:
-	void slotBtnApply();
+	void slotBtnX();
+	void slotBtnY();
+	void slotBtnZ();
 
 private:
 	void InitWidget();

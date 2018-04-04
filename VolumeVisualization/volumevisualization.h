@@ -24,8 +24,6 @@ protected slots:
 	void slotResetPosition();
 	void slotOpacityInfoChanged( const VolumePropertyInfo& stRGBA );
 
-	void slotRotateXYZ( int, int, int );
-
 private:
 	void InitWidget();
 

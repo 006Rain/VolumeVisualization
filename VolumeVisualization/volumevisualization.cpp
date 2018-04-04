@@ -17,7 +17,7 @@ VolumeVisualization::VolumeVisualization( QWidget *parent )
 	ui.setupUi( this );
 	setWindowIcon( QIcon( "./Images/logo.jpg" ) );
 	setWindowTitle( tr( "Volume Visualization" ) );
-	setFixedSize( 1000, 680 );
+	setFixedSize( 1050, 680 );
 
 	InitWidget();
 }
@@ -78,7 +78,9 @@ void VolumeVisualization::InitWidget()
 	connect( pBtnLoad, SIGNAL( clicked() ), this, SLOT( slotBtnLoad() ) );
 	connect( m_pBtnRemove, SIGNAL( clicked() ), this, SLOT( slotBtnRemove() ) );
 	connect( m_pOpacityWidget, SIGNAL( sigOpacityChanged( const VolumePropertyInfo& ) ), this, SLOT( slotOpacityInfoChanged( const VolumePropertyInfo& ) ) );
-	connect( pRotateWidget, SIGNAL( sigRotateXYZ( int, int, int ) ), this, SLOT( slotRotateXYZ( int, int, int ) ) );
+	connect( pRotateWidget, SIGNAL( sigRotateX( int ) ), m_pVolumeWidget, SLOT( slotRotateX( int ) ) );
+	connect( pRotateWidget, SIGNAL( sigRotateY( int ) ), m_pVolumeWidget, SLOT( slotRotateY( int ) ) );
+	connect( pRotateWidget, SIGNAL( sigRotateZ( int ) ), m_pVolumeWidget, SLOT( slotRotateZ( int ) ) );
 	connect( pRotateWidget, SIGNAL( sigResetPosition() ), this, SLOT( slotResetPosition() ) );
 }
 
@@ -120,10 +122,4 @@ void VolumeVisualization::slotOpacityInfoChanged( const VolumePropertyInfo& stPr
 {
 	if( m_pVolumeWidget )
 		m_pVolumeWidget->UpdateVolumeProperty( stPropertyInfo );
-}
-
-void VolumeVisualization::slotRotateXYZ( int nX, int nY, int nZ )
-{
-	if( m_pVolumeWidget )
-		m_pVolumeWidget->RotateXYZ( nX, nY, nZ );
 }

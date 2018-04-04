@@ -26,9 +26,13 @@ public:
 
 	void Reset();
 	void RemoveImage();
-	void RotateXYZ( int nX, int nY, int nZ );
 
 	void GetMaxMinPixelValue( float& fMax, float& fMin );
+
+public slots:
+	void slotRotateX( int );
+	void slotRotateY( int );
+	void slotRotateZ( int );
 
 private:
 	vtkSmartPointer<vtkRenderer> m_pRenderer;
