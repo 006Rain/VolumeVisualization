@@ -266,22 +266,30 @@ void CVtkVolumeWidget::RemoveImage()
 
 void CVtkVolumeWidget::slotRotateX( int nX )
 {
-	m_pVolume->RotateX( nX );
-	m_pVolume->Modified();
+ 	vtkCamera* pCamera = m_pRenderer->GetActiveCamera();
+	pCamera->Elevation( nX );
+	pCamera->OrthogonalizeViewUp();
+	m_pRenderer->Render();
 	m_pRenderWindow->Render();
 }
 
 void CVtkVolumeWidget::slotRotateY( int nY )
 {
-	m_pVolume->RotateY( nY );
-	m_pVolume->Modified();
+	vtkCamera* pCamera = m_pRenderer->GetActiveCamera();
+	pCamera->Azimuth( nY );
+	pCamera->OrthogonalizeViewUp();
+
+	m_pRenderer->Render();
 	m_pRenderWindow->Render();
 }
 
 void CVtkVolumeWidget::slotRotateZ( int nZ )
 {
-	m_pVolume->RotateZ( nZ );
-	m_pVolume->Modified();
+	vtkCamera* pCamera = m_pRenderer->GetActiveCamera();
+	pCamera->Roll( nZ );
+	pCamera->OrthogonalizeViewUp();
+
+	m_pRenderer->Render();
 	m_pRenderWindow->Render();
 }
 
