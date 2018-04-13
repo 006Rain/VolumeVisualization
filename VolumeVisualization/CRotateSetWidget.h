@@ -4,6 +4,7 @@
 #include <QFrame>
 
 class QSpinBox;
+class QRadioButton;
 
 class CRotateSetWidget : public QFrame
 {
@@ -14,9 +15,9 @@ public:
 	~CRotateSetWidget();
 
 signals:
-	void sigRotateX( int );
-	void sigRotateY( int );
-	void sigRotateZ( int );
+	void sigRotateX( int nX, bool bRotateByVolume );
+	void sigRotateY( int nY, bool bRotateByVolume );
+	void sigRotateZ( int nZ, bool bRotateByVolume );
 	void sigResetPosition();
 
 protected slots:
@@ -28,6 +29,9 @@ private:
 	void InitWidget();
 
 private:
+	QRadioButton* m_pRadioBtnVolume;
+	QRadioButton* m_pRadioBtnCamera;
+
 	QSpinBox* m_pSpbRotateX;
 	QSpinBox* m_pSpbRotateY;
 	QSpinBox* m_pSpbRotateZ;

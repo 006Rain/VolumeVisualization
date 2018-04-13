@@ -1,6 +1,7 @@
 #include "CRotateSetWidget.h"
 
 #include <QLabel>
+#include <QRadioButton>
 #include <QSpinBox>
 #include <QPushButton>
 #include <QGridLayout>
@@ -21,7 +22,12 @@ CRotateSetWidget::~CRotateSetWidget()
 void CRotateSetWidget::InitWidget()
 {
 	//Tip
-	QLabel* pLbTip = new QLabel( tr( "Rotate:" ) );
+	QLabel* pLbTip = new QLabel( tr( "Rotate By:" ) );
+
+	//
+	m_pRadioBtnVolume = new QRadioButton( "Volume" );
+	m_pRadioBtnVolume->setChecked( true );
+	m_pRadioBtnCamera = new QRadioButton( "Camera" );
 
 	//X¡¢Y¡¢Z
 	m_pSpbRotateX = new QSpinBox;
@@ -59,7 +65,9 @@ void CRotateSetWidget::InitWidget()
 
 	//MainLayout
 	QGridLayout* pMainLayout = new QGridLayout;
-	pMainLayout->addWidget( pLbTip, 0, 0, 1, 2 );
+	pMainLayout->addWidget( pLbTip, 0, 0 );
+	pMainLayout->addWidget( m_pRadioBtnVolume, 0, 1 );
+	pMainLayout->addWidget( m_pRadioBtnCamera, 0, 2 );
 	pMainLayout->addWidget( new QLabel( tr( "X:" ) ), 1, 0, Qt::AlignRight );
 	pMainLayout->addWidget( m_pSpbRotateX, 1, 1 );
 	pMainLayout->addWidget( pBtnX, 1, 2 );
@@ -86,17 +94,23 @@ void CRotateSetWidget::InitWidget()
 void CRotateSetWidget::slotBtnX()
 {
 	int nX = m_pSpbRotateX->value();
-	emit sigRotateX( nX );
+	bool bRotateByVolume = m_pRadioBtnVolume->isChecked();
+
+	emit sigRotateX( nX, bRotateByVolume );
 }
 
 void CRotateSetWidget::slotBtnY()
 {
 	int nY = m_pSpbRotateY->value();
-	emit sigRotateY( nY );
+	bool bRotateByVolume = m_pRadioBtnVolume->isChecked();
+
+	emit sigRotateY( nY, bRotateByVolume );
 }
 
 void CRotateSetWidget::slotBtnZ()
 {
 	int nZ = m_pSpbRotateZ->value();
-	emit sigRotateZ( nZ );
+	bool bRotateByVolume = m_pRadioBtnVolume->isChecked();
+	
+	emit sigRotateZ( nZ, bRotateByVolume );
 }

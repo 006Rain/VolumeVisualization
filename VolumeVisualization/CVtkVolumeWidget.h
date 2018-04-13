@@ -30,9 +30,9 @@ public:
 	void GetMaxMinPixelValue( float& fMax, float& fMin );
 
 public slots:
-	void slotRotateX( int );
-	void slotRotateY( int );
-	void slotRotateZ( int );
+	void slotRotateX( int nX, bool bRotateByVolume );
+	void slotRotateY( int nY, bool bRotateByVolume );
+	void slotRotateZ( int nZ, bool bRotateByVolume );
 
 private:
 	vtkSmartPointer<vtkRenderer> m_pRenderer;

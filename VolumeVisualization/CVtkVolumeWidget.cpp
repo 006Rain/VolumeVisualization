@@ -264,33 +264,60 @@ void CVtkVolumeWidget::RemoveImage()
 	m_pRenderWindow->Render();
 }
 
-void CVtkVolumeWidget::slotRotateX( int nX )
+void CVtkVolumeWidget::slotRotateX( int nX, bool bRotateByVolume )
 {
- 	vtkCamera* pCamera = m_pRenderer->GetActiveCamera();
-	pCamera->Elevation( nX );
-	pCamera->OrthogonalizeViewUp();
-	m_pRenderer->Render();
-	m_pRenderWindow->Render();
+	if( bRotateByVolume )
+	{
+		m_pVolume->RotateX( nX );
+		m_pVolume->Modified();
+		m_pRenderWindow->Render();
+	}
+	else
+	{
+		vtkCamera* pCamera = m_pRenderer->GetActiveCamera();
+		pCamera->Elevation( nX );
+		pCamera->OrthogonalizeViewUp();
+		m_pRenderer->Render();
+		m_pRenderWindow->Render();
+	}
 }
 
-void CVtkVolumeWidget::slotRotateY( int nY )
+void CVtkVolumeWidget::slotRotateY( int nY, bool bRotateByVolume )
 {
-	vtkCamera* pCamera = m_pRenderer->GetActiveCamera();
-	pCamera->Azimuth( nY );
-	pCamera->OrthogonalizeViewUp();
+	if( bRotateByVolume )
+	{
+		m_pVolume->RotateY( nY );
+		m_pVolume->Modified();
+		m_pRenderWindow->Render();
+	}
+	else
+	{
+		vtkCamera* pCamera = m_pRenderer->GetActiveCamera();
+		pCamera->Azimuth( nY );
+		pCamera->OrthogonalizeViewUp();
 
-	m_pRenderer->Render();
-	m_pRenderWindow->Render();
+		m_pRenderer->Render();
+		m_pRenderWindow->Render();
+	}
 }
 
-void CVtkVolumeWidget::slotRotateZ( int nZ )
+void CVtkVolumeWidget::slotRotateZ( int nZ, bool bRotateByVolume )
 {
-	vtkCamera* pCamera = m_pRenderer->GetActiveCamera();
-	pCamera->Roll( nZ );
-	pCamera->OrthogonalizeViewUp();
+	if( bRotateByVolume )
+	{
+		m_pVolume->RotateZ( nZ );
+		m_pVolume->Modified();
+		m_pRenderWindow->Render();
+	}
+	else
+	{
+		vtkCamera* pCamera = m_pRenderer->GetActiveCamera();
+		pCamera->Roll( nZ );
+		pCamera->OrthogonalizeViewUp();
 
-	m_pRenderer->Render();
-	m_pRenderWindow->Render();
+		m_pRenderer->Render();
+		m_pRenderWindow->Render();
+	}
 }
 
 void CVtkVolumeWidget::GetMaxMinPixelValue( float& fMax, float& fMin )
